@@ -61,3 +61,7 @@ app.listen(port, () => {
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
+client.login(process.env.DISCORD_TOKEN).catch(err => {
+    console.error('Erro crítico ao fazer login no Discord:', err.message);
+});
