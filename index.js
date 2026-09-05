@@ -60,18 +60,16 @@ app.listen(port, () => {
     console.log(`Servidor HTTP rodando na porta ${port}`);
 });
 
-console.log('Status do Token:', process.env.DISCORD_TOKEN ? 'Existe (Possui ' + process.env.DISCORD_TOKEN.length + ' caracteres)' : 'VAZIO/INDEFINIDO');
-
-console.log('Tentando conectar ao gateway do Discord...');
+const timeout = setTimeout(() => {
+    console.error('FALHA: O Render não conseguiu estabelecer conexão WebSocket com o Discord (possível bloqueio de porta/rede).');
+}, 15000);
 
 client.login(process.env.DISCORD_TOKEN)
     .then(() => {
-        console.log('Login bem-sucedido na API do Discord!');
+        clearTimeout(timeout);
+        console.log(`Bot ${client.user.tag} online e pronto!`);
     })
     .catch(err => {
-        console.error('ERRO DETALHADO NO LOGIN DO DISCORD:', err);
+        clearTimeout(timeout);
+        console.error('Erro crítico no login:', err);
     });
-
-process.on('unhandledRejection', error => {
-    console.error('Erro assíncrono não capturado:', error);
-});
