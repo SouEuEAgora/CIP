@@ -60,7 +60,7 @@ app.listen(port, () => {
     console.log(`Servidor HTTP rodando na porta ${port}`);
 });
 
-client.login(process.env.DISCORD_TOKEN);
+console.log('Status do Token:', process.env.DISCORD_TOKEN ? 'Existe (Possui ' + process.env.DISCORD_TOKEN.length + ' caracteres)' : 'VAZIO/INDEFINIDO');
 
 client.login(process.env.DISCORD_TOKEN).catch(err => {
     console.error('Erro crítico ao fazer login no Discord:', err.message);
