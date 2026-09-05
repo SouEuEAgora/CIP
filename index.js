@@ -60,16 +60,10 @@ app.listen(port, () => {
     console.log(`Servidor HTTP rodando na porta ${port}`);
 });
 
-const timeout = setTimeout(() => {
-    console.error('FALHA: O Render não conseguiu estabelecer conexão WebSocket com o Discord (possível bloqueio de porta/rede).');
-}, 15000);
-
 client.login(process.env.DISCORD_TOKEN)
     .then(() => {
-        clearTimeout(timeout);
         console.log(`Bot ${client.user.tag} online e pronto!`);
     })
     .catch(err => {
-        clearTimeout(timeout);
         console.error('Erro crítico no login:', err);
     });
