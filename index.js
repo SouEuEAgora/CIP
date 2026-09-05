@@ -62,6 +62,16 @@ app.listen(port, () => {
 
 console.log('Status do Token:', process.env.DISCORD_TOKEN ? 'Existe (Possui ' + process.env.DISCORD_TOKEN.length + ' caracteres)' : 'VAZIO/INDEFINIDO');
 
-client.login(process.env.DISCORD_TOKEN).catch(err => {
-    console.error('Erro crítico ao fazer login no Discord:', err.message);
+console.log('Tentando conectar ao gateway do Discord...');
+
+client.login(process.env.DISCORD_TOKEN)
+    .then(() => {
+        console.log('Login bem-sucedido na API do Discord!');
+    })
+    .catch(err => {
+        console.error('ERRO DETALHADO NO LOGIN DO DISCORD:', err);
+    });
+
+process.on('unhandledRejection', error => {
+    console.error('Erro assíncrono não capturado:', error);
 });
